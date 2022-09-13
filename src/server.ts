@@ -19,7 +19,7 @@ app.get('/users', async (req, res) => {
 app.get('/users/:id', async (req, res) => {
   const user = await prisma.user.findUnique({
     where: { id: Number(req.params.id) },
-    include: { hobby: true }
+    include: { hobby: true },
   })
   if (user) {
     res.send(user)
@@ -95,3 +95,13 @@ app.patch('/hobbies/:id', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`)
 })
+ 
+//UsersAndHobbies
+
+app.get ('/usersAndHobbies', async (req, res) => {
+    const usersAndHobbies = await prisma.user.findMany({
+        include: { hobby: true }
+    })
+    res.send(usersAndHobbies)
+    })
+    
